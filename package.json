@@ -1,0 +1,13 @@
+{
+  "name": "mainly-whitelabel-rechner",
+  "version": "1.0.0",
+  "description": "Whitelabel Dev Services Kostenrechner",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

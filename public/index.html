@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Whitelabel Dev Kostenrechner — mainly.design</title>
+  <meta name="description" content="Berechnen Sie, wie viel Sie als Agentur sparen, wenn Sie Entwicklung an mainly.design auslagern statt eigene Entwickler einzustellen." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0A0F;
+      --surface: #13131A;
+      --surface2: #1C1C26;
+      --border: #252530;
+      --border2: #2E2E3A;
+      --text: #F0F0F8;
+      --text-muted: #6B6B80;
+      --text-dim: #9090A8;
+      --accent: #7C6EF5;
+      --accent-light: #9D92F7;
+      --accent-glow: rgba(124, 110, 245, 0.15);
+      --green: #22D37A;
+      --green-glow: rgba(34, 211, 122, 0.12);
+      --red: #FF5A5A;
+      --orange: #F59E0B;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NOISE TEXTURE */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    header {
+      padding: 28px 0 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.03em;
+    }
+
+    .header-badge {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-light);
+      background: var(--accent-glow);
+      border: 1px solid rgba(124, 110, 245, 0.25);
+      padding: 5px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.01em;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 72px 0 56px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent-light);
+      position: relative;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-dim);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    /* CALCULATOR LAYOUT */
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .calc-grid { grid-template-columns: 1fr; }
+    }
+
+    /* PANELS */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(124,110,245,0.4), transparent);
+    }
+
+    .panel-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* SLIDERS */
+    .slider-group {
+      margin-bottom: 28px;
+    }
+
+    .slider-group:last-child { margin-bottom: 0; }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+
+    .slider-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-dim);
+    }
+
+    .slider-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .slider-value span {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-left: 2px;
+    }
+
+    .slider-track {
+      position: relative;
+      height: 6px;
+      background: var(--surface2);
+      border-radius: 100px;
+      margin-bottom: 8px;
+    }
+
+    .slider-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      pointer-events: none;
+      transition: width 0.05s;
+    }
+
+    input[type="range"] {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+    }
+
+    .slider-thumb {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent), 0 4px 12px rgba(0,0,0,0.4);
+      pointer-events: none;
+      transition: left 0.05s, transform 0.1s;
+    }
+
+    .slider-group:focus-within .slider-thumb {
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent), 0 0 20px var(--accent-glow), 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .slider-range {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* RESULTS PANEL */
+    .results-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .results-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(34,211,122,0.4), transparent);
+    }
+
+    .result-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+
+    .result-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .result-row:first-child { padding-top: 0; }
+
+    .result-info {}
+
+    .result-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-dim);
+      margin-bottom: 3px;
+    }
+
+    .result-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .result-number {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-align: right;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+
+    .result-number.negative { color: var(--red); }
+    .result-number.neutral { color: var(--text); }
+    .result-number.positive { color: var(--green); }
+
+    .result-number small {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted);
+      display: block;
+      text-align: right;
+      letter-spacing: 0;
+    }
+
+    /* SAVINGS HIGHLIGHT */
+    .savings-card {
+      background: linear-gradient(135deg, rgba(34,211,122,0.08), rgba(34,211,122,0.04));
+      border: 1px solid rgba(34,211,122,0.2);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .savings-card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(34,211,122,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .savings-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green);
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+
+    .savings-amount {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--green);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    .savings-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .savings-badge {
+      background: rgba(34,211,122,0.1);
+      border: 1px solid rgba(34,211,122,0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .savings-badge-number {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -0.04em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .savings-badge-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* COMPARISON BAR */
+    .comparison {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+
+    .comparison-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .comparison-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+
+    .comparison-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .comp-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .comp-bar-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      width: 140px;
+      flex-shrink: 0;
+    }
+
+    .comp-bar-track {
+      flex: 1;
+      height: 8px;
+      background: var(--surface2);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .comp-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .comp-bar-fill.fte { background: linear-gradient(90deg, var(--red), #FF8A8A); }
+    .comp-bar-fill.mainly { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+
+    .comp-bar-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      width: 100px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+
+    /* FACT CARDS */
+    .fact-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 600px) {
+      .fact-cards { grid-template-columns: 1fr; }
+    }
+
+    .fact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+    }
+
+    .fact-icon {
+      font-size: 22px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .fact-value {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 4px;
+    }
+
+    .fact-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 64px 0 80px;
+    }
+
+    .cta-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .cta-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+
+    .cta-sub {
+      font-size: 16px;
+      color: var(--text-dim);
+      margin-bottom: 36px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      letter-spacing: -0.01em;
+      transition: all 0.2s;
+      box-shadow: 0 0 0 0 var(--accent-glow);
+    }
+
+    .cta-btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(124,110,245,0.35);
+    }
+
+    .cta-btn:active { transform: translateY(0); }
+
+    .cta-arrow {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.2s;
+    }
+
+    .cta-btn:hover .cta-arrow { transform: translateX(3px); }
+
+    .cta-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* TRANSITIONS */
+    .result-number, .savings-amount, .savings-badge-number, .fact-value, .comp-bar-value {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* TOOLTIP */
+    .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      font-size: 10px;
+      color: var(--text-muted);
+      cursor: help;
+      margin-left: 4px;
+      vertical-align: middle;
+      font-style: normal;
+    }
+
+    /* SECTION DIVIDER */
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* PULSE ANIMATION */
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(34,211,122,0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(34,211,122,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,211,122,0); }
+    }
+
+    .pulse { animation: pulse-ring 2s ease infinite; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero, .calc-grid, .savings-card, .comparison, .fact-cards, .cta-section {
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .calc-grid { animation-delay: 0.1s; }
+    .savings-card { animation-delay: 0.15s; }
+    .comparison { animation-delay: 0.2s; }
+    .fact-cards { animation-delay: 0.25s; }
+    .cta-section { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="#">
+          <div class="logo-mark">md</div>
+          mainly.design
+        </a>
+        <div class="header-badge">Whitelabel Dev Services</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-eyebrow">Kostenrechner</div>
+        <h1>Inhouse-Entwickler<br/>oder <em>Whitelabel-Partner?</em></h1>
+        <p class="hero-sub">Berechnen Sie live, wie viel Ihre Agentur spart — und welche Kapazitäten Sie gewinnen, wenn Sie Entwicklung an uns auslagern.</p>
+      </section>
+
+      <!-- CALCULATOR -->
+      <div class="calc-grid">
+
+        <!-- INPUTS -->
+        <div class="panel">
+          <div class="panel-label">Ihre Situation</div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <div class="slider-label">Anzahl Entwickler</div>
+              <div class="slider-value" id="val-devs">2 <span>FTE</span></div>
+            </div>
+            <div class="slider-track">
+              <div class="slider-fill" id="fill-devs"></div>
+              <input type="range" id="slider-devs" min="1" max="10" value="2" step="1" />
+              <div class="slider-thumb" id="thumb-devs"></div>
+            </div>
+            <div class="slider-range"><span>1 FTE</span><span>10 FTE</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <div class="slider-label">Durchschn. Jahresgehalt <i class="info-icon" title="Bruttogehalt des Entwicklers (ohne Arbeitgeberanteil)">i</i></div>
+              <div class="slider-value" id="val-salary">75.000 <span>€</span></div>
+            </div>
+            <div class="slider-track">
+              <div class="slider-fill" id="fill-salary"></div>
+              <input type="range" id="slider-salary" min="50000" max="120000" value="75000" step="1000" />
+              <div class="slider-thumb" id="thumb-salary"></div>
+            </div>
+            <div class="slider-range"><span>50.000 €</span><span>120.000 €</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <div class="slider-label">Projektvolumen / Monat <i class="info-icon" title="Wie viele Entwicklertage benötigen Sie monatlich?">i</i></div>
+              <div class="slider-value" id="val-days">20 <span>Tage</span></div>
+            </div>
+            <div class="slider-track">
+              <div class="slider-fill" id="fill-days"></div>
+              <input type="range" id="slider-days" min="5" max="50" value="20" step="1" />
+              <div class="slider-thumb" id="thumb-days"></div>
+            </div>
+            <div class="slider-range"><span>5 Tage</span><span>50 Tage</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <div class="slider-label">Tagessatz mainly.design <i class="info-icon" title="Unser aktueller Tagessatz für Whitelabel-Projekte">i</i></div>
+              <div class="slider-value" id="val-rate">750 <span>€/Tag</span></div>
+            </div>
+            <div class="slider-track">
+              <div class="slider-fill" id="fill-rate"></div>
+              <input type="range" id="slider-rate" min="500" max="1200" value="750" step="50" />
+              <div class="slider-thumb" id="thumb-rate"></div>
+            </div>
+            <div class="slider-range"><span>500 €</span><span>1.200 €</span></div>
+          </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="results-panel">
+          <div class="panel-label">Jahresrechnung</div>
+
+          <div class="result-row">
+            <div class="result-info">
+              <div class="result-name">FTE-Kosten gesamt/Jahr</div>
+              <div class="result-desc">Gehalt × FTE × 1,25 Lohnnebenkosten</div>
+            </div>
+            <div class="result-number negative" id="out-fte">—</div>
+          </div>
+
+          <div class="result-row">
+            <div class="result-info">
+              <div class="result-name">mainly.design Kosten/Jahr</div>
+              <div class="result-desc">Projektvolumen × 12 Monate × Tagessatz</div>
+            </div>
+            <div class="result-number neutral" id="out-mainly">—</div>
+          </div>
+
+          <div class="result-row">
+            <div class="result-info">
+              <div class="result-name">Ausfallzeit pro Entwickler</div>
+              <div class="result-desc">30 Urlaubs- + ~10 Krankheitstage ≈ 17%</div>
+            </div>
+            <div class="result-number neutral" id="out-downtime">40 Tage/Jahr <small>pro Entwickler</small></div>
+          </div>
+
+          <div class="result-row">
+            <div class="result-info">
+              <div class="result-name">Effektive Ausfallstage</div>
+              <div class="result-desc">Nicht verfügbare Entwicklertage/Jahr gesamt</div>
+            </div>
+            <div class="result-number neutral" id="out-lostdays">—</div>
+          </div>
+
+          <div class="result-row">
+            <div class="result-info">
+              <div class="result-name">Gewonnene Kapazität</div>
+              <div class="result-desc">Extratage/Jahr ohne Urlaub & Krankenstand</div>
+            </div>
+            <div class="result-number positive" id="out-gained">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAVINGS HIGHLIGHT -->
+      <div class="savings-card pulse" id="savings-card">
+        <div>
+          <div class="savings-label">Ihre jährliche Ersparnis</div>
+          <div class="savings-amount" id="out-savings">—</div>
+          <div class="savings-sub" id="out-savings-pct">Gegenüber Inhouse-Entwicklung</div>
+        </div>
+        <div class="savings-badge">
+          <div class="savings-badge-number" id="out-months">—</div>
+          <div class="savings-badge-label">Monate Runway<br/>gespart</div>
+        </div>
+      </div>
+
+      <!-- COMPARISON BARS -->
+      <div class="comparison">
+        <div class="comparison-header">
+          <div class="comparison-title">Kostenvergleich im Überblick</div>
+        </div>
+        <div class="comparison-bars">
+          <div class="comp-bar-row">
+            <div class="comp-bar-label">Inhouse (FTE)</div>
+            <div class="comp-bar-track">
+              <div class="comp-bar-fill fte" id="bar-fte" style="width:100%"></div>
+            </div>
+            <div class="comp-bar-value" id="bar-fte-val">—</div>
+          </div>
+          <div class="comp-bar-row">
+            <div class="comp-bar-label">mainly.design</div>
+            <div class="comp-bar-track">
+              <div class="comp-bar-fill mainly" id="bar-mainly" style="width:60%"></div>
+            </div>
+            <div class="comp-bar-value" id="bar-mainly-val">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FACT CARDS -->
+      <div class="section-title">Was Sie noch gewinnen</div>
+      <div class="fact-cards">
+        <div class="fact-card">
+          <span class="fact-icon">🚫</span>
+          <div class="fact-value" id="fact-norecruit">0 Monate</div>
+          <div class="fact-label">Kein Recruiting-Aufwand — kein Gehaltsgespräch, kein Onboarding</div>
+        </div>
+        <div class="fact-card">
+          <span class="fact-icon">⚡️</span>
+          <div class="fact-value" id="fact-scale">Flexibel</div>
+          <div class="fact-label">Kapazität skaliert mit Ihrem Auftragsvolumen — hoch & runter</div>
+        </div>
+        <div class="fact-card">
+          <span class="fact-icon">🎯</span>
+          <div class="fact-value" id="fact-coverage">100%</div>
+          <div class="fact-label">Verfügbarkeit — kein Ausfall durch Urlaub oder Krankenstand</div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <section class="cta-section">
+        <div class="cta-eyebrow">Bereit für den nächsten Schritt?</div>
+        <h2 class="cta-title">Lassen Sie uns über<br/>Ihr Projekt sprechen.</h2>
+        <p class="cta-sub">Kein Pitch-Deck, kein Sales-Funnel. Einfach ein offenes Gespräch darüber, wie wir für Ihre Agentur arbeiten können.</p>
+        <a href="mailto:hello@mainly.design" class="cta-btn">
+          Gespräch vereinbaren
+          <svg class="cta-arrow" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9H15M15 9L9.5 3.5M15 9L9.5 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <div class="cta-note">hello@mainly.design</div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>© 2025 mainly.design</span>
+        <span>Alle Angaben sind Richtwerte und dienen der Orientierung.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── State ──────────────────────────────────────────────
+    const state = {
+      devs: 2,
+      salary: 75000,
+      days: 20,
+      rate: 750,
+    };
+
+    // ── Slider config ──────────────────────────────────────
+    const sliders = [
+      { id: 'devs',   min: 1,     max: 10,    step: 1,    fmt: v => v.toLocaleString('de-DE'), unit: 'FTE' },
+      { id: 'salary', min: 50000, max: 120000, step: 1000, fmt: v => v.toLocaleString('de-DE'), unit: '€' },
+      { id: 'days',   min: 5,     max: 50,    step: 1,    fmt: v => v.toLocaleString('de-DE'), unit: 'Tage' },
+      { id: 'rate',   min: 500,   max: 1200,  step: 50,   fmt: v => v.toLocaleString('de-DE'), unit: '€/Tag' },
+    ];
+
+    // ── Format helpers ─────────────────────────────────────
+    function fmtEUR(n) {
+      if (Math.abs(n) >= 1_000_000) {
+        return (n / 1_000_000).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + ' Mio. €';
+      }
+      return n.toLocaleString('de-DE', { minimumFractionDigits: 0 }) + ' €';
+    }
+
+    function pct(val, total) {
+      return Math.round((val / total) * 100) + ' %';
+    }
+
+    // ── Calculate ──────────────────────────────────────────
+    function calculate() {
+      const { devs, salary, days, rate } = state;
+
+      const fteCosts = salary * devs * 1.25;
+      const mainlyCosts = days * 12 * rate;
+      const savings = fteCosts - mainlyCosts;
+      const savingsPct = (savings / fteCosts) * 100;
+
+      const downtimeDaysPerDev = 40; // 30 vacation + 10 sick
+      const totalLostDays = downtimeDaysPerDev * devs;
+      const workDaysPerYear = 220;
+      const availableDaysPerDev = workDaysPerYear - downtimeDaysPerDev;
+      const gainedCapacity = totalLostDays; // vs. mainly (always available)
+
+      const monthlyFTE = fteCosts / 12;
+      const monthsSaved = savings > 0 ? (savings / monthlyFTE).toFixed(1) : 0;
+
+      return { fteCosts, mainlyCosts, savings, savingsPct, totalLostDays, gainedCapacity, monthsSaved };
+    }
+
+    // ── Render ─────────────────────────────────────────────
+    function render() {
+      const r = calculate();
+
+      // Results column
+      document.getElementById('out-fte').innerHTML = `−${fmtEUR(r.fteCosts)} <small>/Jahr</small>`;
+      document.getElementById('out-mainly').innerHTML = `${fmtEUR(r.mainlyCosts)} <small>/Jahr</small>`;
+      document.getElementById('out-lostdays').innerHTML = `${r.totalLostDays} Tage/Jahr <small>gesamt (${state.devs} FTE)</small>`;
+      document.getElementById('out-gained').innerHTML = `+${r.totalLostDays} Tage/Jahr <small>mehr Verfügbarkeit</small>`;
+
+      // Savings card
+      const savingsEl = document.getElementById('out-savings');
+      const savingsPctEl = document.getElementById('out-savings-pct');
+      const monthsEl = document.getElementById('out-months');
+
+      if (r.savings > 0) {
+        savingsEl.textContent = '+' + fmtEUR(r.savings);
+        savingsEl.style.color = 'var(--green)';
+        savingsPctEl.textContent = `${r.savingsPct.toFixed(0)} % günstiger als Inhouse-Entwicklung`;
+        monthsEl.textContent = r.monthsSaved;
+        document.getElementById('savings-card').style.borderColor = 'rgba(34,211,122,0.2)';
+      } else {
+        savingsEl.textContent = fmtEUR(r.savings);
+        savingsEl.style.color = 'var(--red)';
+        savingsPctEl.textContent = 'Inhouse ist günstiger bei diesem Volumen';
+        monthsEl.textContent = '—';
+        document.getElementById('savings-card').style.borderColor = 'rgba(255,90,90,0.2)';
+      }
+
+      // Comparison bars
+      const max = Math.max(r.fteCosts, r.mainlyCosts);
+      document.getElementById('bar-fte').style.width = (r.fteCosts / max * 100) + '%';
+      document.getElementById('bar-mainly').style.width = (r.mainlyCosts / max * 100) + '%';
+      document.getElementById('bar-fte-val').textContent = fmtEUR(r.fteCosts);
+      document.getElementById('bar-mainly-val').textContent = fmtEUR(r.mainlyCosts);
+
+      // Fact cards
+      document.getElementById('fact-norecruit').textContent = `${Math.round(state.devs * 2.5)} Monate`;
+      document.getElementById('fact-coverage').textContent = '100 %';
+    }
+
+    // ── Slider UI ──────────────────────────────────────────
+    function updateSliderUI(cfg, value) {
+      const pct = (value - cfg.min) / (cfg.max - cfg.min);
+      document.getElementById(`fill-${cfg.id}`).style.width = (pct * 100) + '%';
+      document.getElementById(`thumb-${cfg.id}`).style.left = (pct * 100) + '%';
+      document.getElementById(`val-${cfg.id}`).innerHTML = `${cfg.fmt(value)} <span>${cfg.unit}</span>`;
+    }
+
+    // ── Init sliders ───────────────────────────────────────
+    sliders.forEach(cfg => {
+      const input = document.getElementById(`slider-${cfg.id}`);
+      updateSliderUI(cfg, state[cfg.id]);
+
+      input.addEventListener('input', () => {
+        const v = parseFloat(input.value);
+        state[cfg.id] = v;
+        updateSliderUI(cfg, v);
+        render();
+      });
+    });
+
+    // ── Initial render ─────────────────────────────────────
+    render();
+  </script>
+</body>
+</html>
