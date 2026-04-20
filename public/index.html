@@ -195,6 +195,12 @@
 
     footer { border-top: 1px solid var(--border); padding: 24px 0; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; gap: 8px; }
+    .footer-links { display: flex; gap: 16px; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--accent-light); }
+    .dsgvo-note { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 20px; display: flex; align-items: center; gap: 10px; margin-bottom: 24px; font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .dsgvo-note-icon { font-size: 16px; flex-shrink: 0; }
+    .dsgvo-note strong { color: var(--text-dim); font-weight: 600; }
 
     .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
     .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
@@ -274,6 +280,7 @@
       .header-badge { display: none !important; }
       .panel-actions { display: none !important; }
       .share-row { display: none !important; }
+      .dsgvo-note { display: none !important; }
       .cta-section { display: none !important; }
       footer { display: none !important; }
       .hidden-costs-body { display: block !important; }
@@ -556,6 +563,11 @@
         </div>
       </div>
 
+      <div class="dsgvo-note">
+        <span class="dsgvo-note-icon">🔒</span>
+        <span><strong>Datenschutzhinweis:</strong> Dieser Rechner verarbeitet keine personenbezogenen Daten. Alle Berechnungen erfolgen ausschließlich lokal in Ihrem Browser. Es werden keine Eingaben übertragen oder gespeichert.</span>
+      </div>
+
       <div class="share-row">
         <span class="share-label">Berechnung teilen</span>
         <div class="share-buttons">
@@ -595,6 +607,10 @@
       <div class="footer-inner">
         <span>© <span id="footer-year"></span> mainly.design</span>
         <span>Alle Angaben sind Richtwerte und dienen der Orientierung.</span>
+        <div class="footer-links">
+          <a href="https://mainly.design/impressum" target="_blank" rel="noopener">Impressum</a>
+          <a href="https://mainly.design/datenschutz" target="_blank" rel="noopener">Datenschutz</a>
+        </div>
       </div>
     </div>
   </footer>
