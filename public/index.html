@@ -845,8 +845,23 @@
         updateCostDefaults();
         updateURL();
         render();
+        scheduleTrack();
       });
     });
+
+    // ── Slider-Tracking (aggregiert, kein personenbezogenes Tracking) ──────────
+    var trackTimer = null;
+    function scheduleTrack() {
+      clearTimeout(trackTimer);
+      trackTimer = setTimeout(function() {
+        fetch('/api/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ devs: state.devs, salary: state.salary, days: state.days }),
+        }).catch(function() {}); // silent – kein Fehler wenn offline
+      }, 1500);
+    }
+    // ─────────────────────────────────────────────────────────────────────────
 
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
