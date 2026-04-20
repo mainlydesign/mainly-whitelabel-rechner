@@ -173,10 +173,12 @@
     .fact-label { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
 
     /* SHARE */
-    .share-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-    .share-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-    .share-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border2); color: var(--text-dim); font-family: 'Inter',sans-serif; font-size: 12px; font-weight: 500; padding: 7px 14px; border-radius: 8px; cursor: pointer; transition: all 0.15s; text-decoration: none; }
-    .share-btn:hover { border-color: var(--accent); color: var(--accent-light); }
+    .share-row { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .share-label { font-size: 13px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+    .share-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; width: 100%; }
+    .share-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--surface); border: 1px solid var(--border2); color: var(--text); font-family: 'Inter',sans-serif; font-size: 15px; font-weight: 600; padding: 16px 28px; border-radius: 12px; cursor: pointer; transition: all 0.15s; text-decoration: none; flex: 1; min-width: 200px; max-width: 320px; }
+    .share-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .share-btn:hover { border-color: var(--accent); color: var(--accent-light); background: var(--surface2); }
     .share-btn.copied { border-color: var(--green); color: var(--green); }
 
     /* CTA */
@@ -217,6 +219,74 @@
     .comparison { animation: fadeUp 0.5s ease both; animation-delay: 0.2s; }
     .fact-cards { animation: fadeUp 0.5s ease both; animation-delay: 0.25s; }
     .cta-section { animation: fadeUp 0.5s ease both; animation-delay: 0.3s; }
+
+    /* TESTIMONIAL CAROUSEL */
+    .testimonials-section { margin-bottom: 24px; }
+    .testimonials-header { text-align: center; margin-bottom: 32px; }
+    .testimonials-title { font-size: clamp(22px,3vw,32px); font-weight: 800; letter-spacing: -0.04em; color: var(--text); margin-bottom: 8px; }
+    .testimonials-sub { font-size: 14px; color: var(--text-muted); }
+    .testimonials-avatars { display: flex; align-items: flex-end; justify-content: center; gap: 8px; margin-bottom: 36px; }
+    .testimonial-av { width: 72px; height: 72px; border-radius: 12px; background: var(--surface2); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: all 0.2s; flex-shrink: 0; user-select: none; }
+    .testimonial-av.active { width: 88px; height: 88px; border-color: var(--accent); color: var(--text); background: linear-gradient(135deg,var(--accent),var(--accent-light)); font-size: 22px; box-shadow: 0 0 0 4px rgba(124,110,245,0.2); }
+    .testimonials-body { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 40px; position: relative; }
+    .testimonials-body::before { content: '\201C'; position: absolute; top: 20px; left: 32px; font-size: 56px; line-height: 1; color: var(--accent); opacity: 0.25; font-family: Georgia, serif; pointer-events: none; }
+    .testimonial-quote { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-style: italic; margin-bottom: 28px; padding-left: 20px; min-height: 80px; transition: opacity 0.2s; }
+    .testimonial-meta { display: flex; align-items: center; justify-content: space-between; padding-left: 20px; }
+    .testimonial-info-name { font-size: 14px; font-weight: 700; color: var(--text); }
+    .testimonial-info-role { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .testimonial-stars { color: #F59E0B; font-size: 15px; letter-spacing: 2px; }
+    .testimonials-nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; }
+    .testimonials-nav-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border2); color: var(--text-dim); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; }
+    .testimonials-nav-btn:hover { border-color: var(--accent); color: var(--accent-light); }
+    .testimonials-nav-dots { display: flex; gap: 6px; }
+    .testimonials-nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); cursor: pointer; transition: background 0.2s; }
+    .testimonials-nav-dot.active { background: var(--accent); }
+
+    /* REVIEW BANNER */
+    .review-banner { display: grid; grid-template-columns: 1fr 1fr; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); margin-bottom: 24px; }
+    @media (max-width: 640px) { .review-banner { grid-template-columns: 1fr; } }
+    .review-banner-left { background: linear-gradient(135deg, #1a1040 0%, #0d0d20 100%); padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; position: relative; overflow: hidden; }
+    .review-banner-left::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(124,110,245,0.25) 0%, transparent 70%); border-radius: 50%; }
+    .review-banner-stars-row { display: flex; gap: 6px; margin-bottom: 20px; }
+    .review-banner-star { font-size: 28px; }
+    .review-banner-left-title { font-size: clamp(18px, 2.5vw, 26px); font-weight: 800; letter-spacing: -0.04em; color: #fff; line-height: 1.2; }
+    .review-banner-right { background: var(--surface); padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+    .review-banner-right-title { font-size: 18px; font-weight: 700; letter-spacing: -0.03em; color: var(--text); }
+    .review-banner-right-text { font-size: 14px; color: var(--text-dim); line-height: 1.65; }
+    .review-banner-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: white; font-family: 'Inter',sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; padding: 13px 26px; border-radius: 10px; letter-spacing: -0.01em; transition: all 0.2s; width: fit-content; margin-top: 8px; }
+    .review-banner-btn:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(124,110,245,0.3); }
+    .review-banner-btn:active { transform: translateY(0); }
+
+    /* COST INPUTS */
+    .cost-inputs { margin-top: 20px; padding-top: 20px; }
+    @page { margin: 12mm; }
+    @media print {
+      * { animation: none !important; transition: none !important; }
+      body { background: white !important; color: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body::before { display: none !important; }
+      :root {
+        --bg: white; --surface: #f5f5f8; --surface2: #ebebf0;
+        --border: #d0d0dc; --border2: #c0c0cc;
+        --text: #0a0a0f; --text-muted: #555566; --text-dim: #333344;
+        --accent: #5a4fd6; --accent-light: #7c6ef5;
+        --green: #16a34a; --red: #c0392b;
+      }
+      .header-badge { display: none !important; }
+      .panel-actions { display: none !important; }
+      .share-row { display: none !important; }
+      .cta-section { display: none !important; }
+      footer { display: none !important; }
+      .hidden-costs-body { display: block !important; }
+      .hidden-costs-chevron { display: none !important; }
+      .hidden-costs-toggle { cursor: default !important; }
+      .calc-grid { page-break-inside: avoid; }
+      .savings-card { page-break-inside: avoid; }
+      .comparison { page-break-inside: avoid; }
+      .hidden-costs { page-break-inside: avoid; }
+      .fact-cards { page-break-inside: avoid; }
+      .info-icon .tooltip { display: none !important; }
+      header { border-bottom: 1px solid #ccc; }
+    }
   </style>
 </head>
 <body>
@@ -292,6 +362,74 @@
               <div class="slider-thumb" id="thumb-days"></div>
             </div>
             <div class="slider-range"><span>5 Tage</span><span>50 Tage</span></div>
+          </div>
+
+          <div class="cost-inputs">
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <div class="slider-label">
+                  Arbeitsplatzkosten/Jahr
+                  <span class="info-icon" tabindex="0">i<span class="tooltip">Büro, Hardware, Software-Lizenzen (ca. 800 €/Monat/Person)</span></span>
+                </div>
+                <div class="slider-value" id="cval-workplace">— <span>€</span></div>
+              </div>
+              <div class="slider-track">
+                <div class="slider-fill" id="cfill-workplace"></div>
+                <input type="range" id="cslider-workplace" min="0" max="100000" value="0" step="500" data-auto="true" />
+                <div class="slider-thumb" id="cthumb-workplace"></div>
+              </div>
+              <div class="slider-range"><span>0 €</span><span>100.000 €</span></div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <div class="slider-label">
+                  Recruiting-Kosten
+                  <span class="info-icon" tabindex="0">i<span class="tooltip">Headhunter, Stellenanzeigen (ca. 20 % des Jahresgehalts)</span></span>
+                </div>
+                <div class="slider-value" id="cval-recruiting">— <span>€</span></div>
+              </div>
+              <div class="slider-track">
+                <div class="slider-fill" id="cfill-recruiting"></div>
+                <input type="range" id="cslider-recruiting" min="0" max="200000" value="0" step="1000" data-auto="true" />
+                <div class="slider-thumb" id="cthumb-recruiting"></div>
+              </div>
+              <div class="slider-range"><span>0 €</span><span>200.000 €</span></div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <div class="slider-label">
+                  Onboarding-Verlust
+                  <span class="info-icon" tabindex="0">i<span class="tooltip">4 Monate bis zur vollen Produktivität — bezahlt, aber nicht vollständig produktiv</span></span>
+                </div>
+                <div class="slider-value" id="cval-onboarding">— <span>€</span></div>
+              </div>
+              <div class="slider-track">
+                <div class="slider-fill" id="cfill-onboarding"></div>
+                <input type="range" id="cslider-onboarding" min="0" max="300000" value="0" step="1000" data-auto="true" />
+                <div class="slider-thumb" id="cthumb-onboarding"></div>
+              </div>
+              <div class="slider-range"><span>0 €</span><span>300.000 €</span></div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <div class="slider-label">
+                  Fortbildung &amp; Weiterentwicklung
+                  <span class="info-icon" tabindex="0">i<span class="tooltip">Konferenzen, Kurse, Fachbücher (ca. 2.500 €/Jahr/Person)</span></span>
+                </div>
+                <div class="slider-value" id="cval-training">— <span>€</span></div>
+              </div>
+              <div class="slider-track">
+                <div class="slider-fill" id="cfill-training"></div>
+                <input type="range" id="cslider-training" min="0" max="30000" value="0" step="100" data-auto="true" />
+                <div class="slider-thumb" id="cthumb-training"></div>
+              </div>
+              <div class="slider-range"><span>0 €</span><span>30.000 €</span></div>
+            </div>
+
           </div>
 
           <div class="fixed-rate-row">
@@ -398,46 +536,6 @@
         </div>
       </div>
 
-      <div class="hidden-costs" id="hidden-costs-section">
-        <button class="hidden-costs-toggle" id="hidden-costs-toggle" aria-expanded="false">
-          <div class="hidden-costs-toggle-left">
-            <span class="hidden-costs-icon">🔍</span>
-            Versteckte Inhouse-Kosten — was Ihr Entwickler wirklich kostet
-          </div>
-          <svg class="hidden-costs-chevron" viewBox="0 0 18 18" fill="none">
-            <path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <div class="hidden-costs-body">
-          <p class="hidden-costs-intro">Das Jahresgehalt ist nur ein Teil der tatsächlichen Kosten. Diese Posten werden häufig übersehen oder unterschätzt:</p>
-          <div class="hidden-costs-grid">
-            <div class="hidden-cost-item">
-              <div class="hidden-cost-item-label">Arbeitsplatzkosten</div>
-              <div class="hidden-cost-item-value" id="hc-workplace">—</div>
-              <div class="hidden-cost-item-desc">Büro, Hardware, Software-Lizenzen (ca. 800 €/Monat/Person)</div>
-            </div>
-            <div class="hidden-cost-item">
-              <div class="hidden-cost-item-label">Recruiting-Kosten</div>
-              <div class="hidden-cost-item-value" id="hc-recruiting">—</div>
-              <div class="hidden-cost-item-desc">Headhunter, Stellenanzeigen (ca. 20 % des Jahresgehalts)</div>
-            </div>
-            <div class="hidden-cost-item">
-              <div class="hidden-cost-item-label">Onboarding-Verlust</div>
-              <div class="hidden-cost-item-value" id="hc-onboarding">—</div>
-              <div class="hidden-cost-item-desc">4 Monate bis zur vollen Produktivität — bezahlt, aber nicht vollständig produktiv</div>
-            </div>
-            <div class="hidden-cost-item">
-              <div class="hidden-cost-item-label">Fortbildung & Weiterentwicklung</div>
-              <div class="hidden-cost-item-value" id="hc-training">—</div>
-              <div class="hidden-cost-item-desc">Konferenzen, Kurse, Fachbücher (ca. 2.500 €/Jahr/Person)</div>
-            </div>
-          </div>
-          <div class="hidden-costs-total">
-            <div class="hidden-costs-total-label">Vollkosten Inhouse gesamt/Jahr</div>
-            <div class="hidden-costs-total-value" id="hc-total">—</div>
-          </div>
-        </div>
-      </div>
 
       <div class="section-title">Was Sie noch gewinnen</div>
       <div class="fact-cards">
@@ -459,7 +557,8 @@
       </div>
 
       <div class="share-row">
-        <span class="share-label">Berechnung teilen:</span>
+        <span class="share-label">Berechnung teilen</span>
+        <div class="share-buttons">
         <button class="share-btn" id="copy-link-btn">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M5.5 7.5a3 3 0 0 0 4.243 0l1.5-1.5A3 3 0 0 0 7 1.757L6.25 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M7.5 5.5a3 3 0 0 0-4.243 0l-1.5 1.5A3 3 0 0 0 6 11.243l.75-.743" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           Link kopieren
@@ -468,6 +567,11 @@
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="2.5" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M1 4l5.5 3.5L12 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           Ergebnis per Mail senden
         </a>
+        <button class="share-btn" id="print-btn">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M3 4.5V1.5h7v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="4.5" width="11" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/><path d="M3 9.5v2h7v-2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="7" r="0.6" fill="currentColor"/></svg>
+          Als PDF exportieren
+        </button>
+        </div>
       </div>
 
       <section class="cta-section">
@@ -525,6 +629,13 @@
       { id: 'days',   min: 5,     max: 50,    step: 1,    fmt: v => Math.round(v).toLocaleString('de-DE'), unit: 'Tage' },
     ];
 
+    const costSliders = [
+      { id: 'workplace',  min: 0, max: 100000, step: 500,  fmt: v => Math.round(v).toLocaleString('de-DE'), unit: '€' },
+      { id: 'recruiting', min: 0, max: 200000, step: 1000, fmt: v => Math.round(v).toLocaleString('de-DE'), unit: '€' },
+      { id: 'onboarding', min: 0, max: 300000, step: 1000, fmt: v => Math.round(v).toLocaleString('de-DE'), unit: '€' },
+      { id: 'training',   min: 0, max: 30000,  step: 100,  fmt: v => Math.round(v).toLocaleString('de-DE'), unit: '€' },
+    ];
+
     function fmtEUR(n) {
       if (Math.abs(n) >= 1000000) {
         return (n / 1000000).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + ' Mio. €';
@@ -542,10 +653,10 @@
       const totalLostDays = DOWNTIME_DAYS * devs;
       const monthlyFTE   = fteCosts / 12;
       const monthsSaved  = savings > 0 ? (savings / monthlyFTE).toFixed(1) : 0;
-      const hcWorkplace  = WORKPLACE_MONTHLY * 12 * devs;
-      const hcRecruiting = salary * RECRUITING_PCT * devs;
-      const hcOnboarding = (salary / 12) * ONBOARDING_MONTHS * devs;
-      const hcTraining   = TRAINING_ANNUAL * devs;
+      const hcWorkplace  = parseFloat(document.getElementById('cslider-workplace').value)  || 0;
+      const hcRecruiting = parseFloat(document.getElementById('cslider-recruiting').value) || 0;
+      const hcOnboarding = parseFloat(document.getElementById('cslider-onboarding').value) || 0;
+      const hcTraining   = parseFloat(document.getElementById('cslider-training').value)   || 0;
       const hcTotal      = fteCosts + hcWorkplace + hcRecruiting + hcOnboarding + hcTraining;
       return { baseSalary, fteCosts, mainlyCosts, savings, savingsPct, totalLostDays, monthsSaved,
                hcWorkplace, hcRecruiting, hcOnboarding, hcTraining, hcTotal };
@@ -590,12 +701,6 @@
       document.getElementById('bar-fte-full-val').textContent = fmtEUR(r.hcTotal);
       document.getElementById('bar-mainly-val').textContent   = fmtEUR(r.mainlyCosts);
 
-      document.getElementById('hc-workplace').textContent  = fmtEUR(r.hcWorkplace);
-      document.getElementById('hc-recruiting').textContent = fmtEUR(r.hcRecruiting);
-      document.getElementById('hc-onboarding').textContent = fmtEUR(r.hcOnboarding);
-      document.getElementById('hc-training').textContent   = fmtEUR(r.hcTraining);
-      document.getElementById('hc-total').textContent      = fmtEUR(r.hcTotal);
-
       document.getElementById('fact-norecruit').textContent = `${Math.round(devs * 2.5)} Monate`;
 
       updateEmailCTA(r);
@@ -622,10 +727,38 @@
       document.getElementById('cta-main-btn').href  = href;
     }
 
+    function computeCostDefaults() {
+      const { devs, salary } = state;
+      return {
+        'workplace':  Math.round(WORKPLACE_MONTHLY * 12 * devs),
+        'recruiting': Math.round(salary * RECRUITING_PCT * devs),
+        'onboarding': Math.round((salary / 12) * ONBOARDING_MONTHS * devs),
+        'training':   Math.round(TRAINING_ANNUAL * devs),
+      };
+    }
+
+    function updateCostDefaults() {
+      var defaults = computeCostDefaults();
+      costSliders.forEach(function(cfg) {
+        var slider = document.getElementById('cslider-' + cfg.id);
+        if (slider && slider.dataset.auto === 'true') {
+          var val = Math.min(Math.max(defaults[cfg.id], cfg.min), cfg.max);
+          slider.value = val;
+          updateCostSliderUI(cfg, parseFloat(slider.value));
+        }
+      });
+    }
+
     function updateURL() {
       const { devs, salary, days } = state;
       const params = new URLSearchParams({ devs, salary, days });
       history.replaceState(null, '', window.location.pathname + '?' + params.toString());
+    }
+
+    function trackConversion(action, value) {
+      if (typeof gtag === 'function') {
+        gtag('event', action, { event_category: 'lead', event_label: 'calculator', value: Math.round(value || 0) });
+      }
     }
 
     document.getElementById('copy-link-btn').addEventListener('click', function() {
@@ -633,18 +766,25 @@
         var btn = document.getElementById('copy-link-btn');
         btn.textContent = '\u2713 Kopiert!';
         btn.classList.add('copied');
+        trackConversion('share_link', calculate().savings);
         setTimeout(function() {
-          btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M5.5 7.5a3 3 0 0 0 4.243 0l1.5-1.5A3 3 0 0 0 7 1.757L6.25 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M7.5 5.5a3 3 0 0 0-4.243 0l-1.5 1.5A3 3 0 0 0 6 11.243l.75-.743" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Link kopieren';
+          btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 13 13" fill="none"><path d="M5.5 7.5a3 3 0 0 0 4.243 0l1.5-1.5A3 3 0 0 0 7 1.757L6.25 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M7.5 5.5a3 3 0 0 0-4.243 0l-1.5 1.5A3 3 0 0 0 6 11.243l.75-.743" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Link kopieren';
           btn.classList.remove('copied');
         }, 2000);
       });
     });
 
-    document.getElementById('hidden-costs-toggle').addEventListener('click', function() {
-      var section = document.getElementById('hidden-costs-section');
-      var btn = document.getElementById('hidden-costs-toggle');
-      var isOpen = section.classList.toggle('open');
-      btn.setAttribute('aria-expanded', String(isOpen));
+    document.getElementById('print-btn').addEventListener('click', function() {
+      trackConversion('pdf_export', calculate().savings);
+      window.print();
+    });
+
+    document.getElementById('email-cta-btn').addEventListener('click', function() {
+      trackConversion('email_cta', calculate().savings);
+    });
+
+    document.getElementById('cta-main-btn').addEventListener('click', function() {
+      trackConversion('cta_click', calculate().savings);
     });
 
     document.getElementById('reset-btn').addEventListener('click', function() {
@@ -656,6 +796,10 @@
         input.value = state[cfg.id];
         updateSliderUI(cfg, state[cfg.id]);
       });
+      costSliders.forEach(function(cfg) {
+        document.getElementById('cslider-' + cfg.id).dataset.auto = 'true';
+      });
+      updateCostDefaults();
       updateURL();
       render();
     });
@@ -667,6 +811,13 @@
       document.getElementById('val-'   + cfg.id).innerHTML   = cfg.fmt(value) + ' <span>' + cfg.unit + '</span>';
     }
 
+    function updateCostSliderUI(cfg, value) {
+      var pct = (value - cfg.min) / (cfg.max - cfg.min);
+      document.getElementById('cfill-'  + cfg.id).style.width = (pct * 100) + '%';
+      document.getElementById('cthumb-' + cfg.id).style.left  = (pct * 100) + '%';
+      document.getElementById('cval-'   + cfg.id).innerHTML   = cfg.fmt(value) + ' <span>' + cfg.unit + '</span>';
+    }
+
     sliders.forEach(function(cfg) {
       var input = document.getElementById('slider-' + cfg.id);
       input.value = state[cfg.id];
@@ -675,12 +826,110 @@
         var v = parseFloat(input.value);
         state[cfg.id] = v;
         updateSliderUI(cfg, v);
+        updateCostDefaults();
         updateURL();
         render();
       });
     });
 
     document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // ── Testimonial carousel ──────────────────────────────────────────────────
+    var TESTIMONIALS = [
+      {
+        initials: 'MK',
+        quote: 'Wir haben den Wechsel auf Whitelabel-Entwicklung lange vor uns hergeschoben — dabei haben wir in einem Jahr fast 60.000 € gespart und konnten gleichzeitig mehr Projekte annehmen. Kein Onboarding, kein Gehaltspoker, kein Ausfall durch Urlaub.',
+        name: 'Marcus K.',
+        role: 'Geschäftsführer, Digitalagentur (35 MA)',
+        stars: 5,
+      },
+      {
+        initials: 'SB',
+        quote: 'Was mich am meisten überzeugt hat: Die Qualität ist konstant, egal ob wir 5 oder 25 Tage im Monat buchen. Unsere Kunden merken den Unterschied nicht — außer dass die Projekte pünktlich fertig sind.',
+        name: 'Sarah B.',
+        role: 'Projektleitung, Full-Service-Agentur',
+        stars: 5,
+      },
+      {
+        initials: 'TM',
+        quote: 'Als kleine Agentur können wir uns keinen eigenen Senior-Dev leisten. Mit mainly.design haben wir Senior-Level-Entwicklung zum Preis, der in unsere Marge passt. Das hat unser Angebot komplett verändert.',
+        name: 'Thomas M.',
+        role: 'Inhaber, Kreativagentur (8 MA)',
+        stars: 5,
+      },
+      {
+        initials: 'AL',
+        quote: 'Der Onboarding-Prozess war überraschend reibungslos. Innerhalb einer Woche liefen die ersten Tickets durch. Ich hätte nicht gedacht, dass Remote-Whitelabel so nahtlos funktioniert.',
+        name: 'Anna L.',
+        role: 'CTO, Webagentur',
+        stars: 5,
+      },
+      {
+        initials: 'RH',
+        quote: 'Wir haben jetzt deutlich mehr Flexibilität bei der Auftragsannahme. Früher mussten wir Projekte ablehnen, weil die Kapazität fehlte. Heute skalieren wir einfach hoch und rechnen das sauber weiter.',
+        name: 'Robert H.',
+        role: 'Geschäftsführung, Technologieagentur',
+        stars: 5,
+      },
+    ];
+
+    var tCurrent = 0;
+
+    function renderTestimonial(idx) {
+      var t = TESTIMONIALS[idx];
+      var quoteEl = document.getElementById('testimonial-quote');
+      quoteEl.style.opacity = '0';
+      setTimeout(function() {
+        quoteEl.textContent = '\u201C' + t.quote + '\u201D';
+        document.getElementById('testimonial-name').textContent = t.name;
+        document.getElementById('testimonial-role').textContent = t.role;
+        document.getElementById('testimonial-stars').textContent = '\u2605'.repeat(t.stars);
+        quoteEl.style.opacity = '1';
+      }, 150);
+      document.querySelectorAll('.testimonial-av').forEach(function(el, i) {
+        el.classList.toggle('active', i === idx);
+      });
+      document.querySelectorAll('.testimonials-nav-dot').forEach(function(el, i) {
+        el.classList.toggle('active', i === idx);
+      });
+    }
+
+    (function initTestimonials() {
+      var avatarsEl = document.getElementById('testimonials-avatars');
+      var dotsEl = document.getElementById('testimonials-dots');
+      TESTIMONIALS.forEach(function(t, i) {
+        var av = document.createElement('div');
+        av.className = 'testimonial-av' + (i === 0 ? ' active' : '');
+        av.textContent = t.initials;
+        av.addEventListener('click', function() { tCurrent = i; renderTestimonial(i); });
+        avatarsEl.appendChild(av);
+        var dot = document.createElement('div');
+        dot.className = 'testimonials-nav-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', function() { tCurrent = i; renderTestimonial(i); });
+        dotsEl.appendChild(dot);
+      });
+      renderTestimonial(0);
+      document.getElementById('t-prev').addEventListener('click', function() {
+        tCurrent = (tCurrent - 1 + TESTIMONIALS.length) % TESTIMONIALS.length;
+        renderTestimonial(tCurrent);
+      });
+      document.getElementById('t-next').addEventListener('click', function() {
+        tCurrent = (tCurrent + 1) % TESTIMONIALS.length;
+        renderTestimonial(tCurrent);
+      });
+    })();
+
+    costSliders.forEach(function(cfg) {
+      var input = document.getElementById('cslider-' + cfg.id);
+      input.addEventListener('input', function() {
+        var v = parseFloat(input.value);
+        input.dataset.auto = 'false';
+        updateCostSliderUI(cfg, v);
+        render();
+      });
+    });
+
+    updateCostDefaults();
     render();
   </script>
 </body>
