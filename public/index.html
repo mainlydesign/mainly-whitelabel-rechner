@@ -56,12 +56,35 @@
     }
 
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    main .container { z-index: 1; }
+    header .container { z-index: auto; }
 
-    header { padding: 28px 0 24px; border-bottom: 1px solid var(--border); }
+    header { padding: 28px 0 24px; border-bottom: 1px solid var(--border); position: relative; z-index: 100; }
     .header-inner { display: flex; align-items: center; justify-content: space-between; }
     .logo { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 10px; }
     .logo-mark { width: 30px; height: 30px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: white; letter-spacing: -0.03em; }
     .header-badge { font-size: 12px; font-weight: 500; color: var(--accent-light); background: var(--accent-glow); border: 1px solid rgba(124,110,245,0.25); padding: 5px 12px; border-radius: 100px; }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+
+    /* MEGA-MENU */
+    .nav-item { position: relative; }
+    .nav-btn { display: inline-flex; align-items: center; gap: 5px; background: transparent; border: 1px solid var(--border2); color: var(--text-dim); font-family: 'Inter',sans-serif; font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 8px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .nav-btn svg { width: 12px; height: 12px; transition: transform 0.2s; flex-shrink: 0; }
+    .nav-btn:hover, .nav-item.open .nav-btn { border-color: var(--accent); color: var(--accent-light); }
+    .nav-item.open .nav-btn svg { transform: rotate(180deg); }
+
+    .mega-menu { position: absolute; top: calc(100% + 12px); right: 0; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius); padding: 28px 32px; box-shadow: 0 24px 60px rgba(0,0,0,0.5); z-index: 200; display: none; min-width: 760px; }
+    .mega-menu::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg,transparent,rgba(124,110,245,0.4),transparent); border-radius: var(--radius) var(--radius) 0 0; }
+    .nav-item.open .mega-menu { display: flex; gap: 0; }
+    .mega-col { flex: 1; padding: 0 24px; border-right: 1px solid var(--border); }
+    .mega-col:first-child { padding-left: 0; }
+    .mega-col:last-child { border-right: none; }
+    .mega-col-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+    .mega-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .mega-col ul li { font-size: 13px; color: var(--text-dim); font-weight: 500; cursor: default; transition: color 0.12s; }
+    .mega-col ul li:hover { color: var(--accent-light); }
+    @media (max-width: 860px) { .mega-menu { min-width: calc(100vw - 48px); right: -12px; } }
+    @media (max-width: 600px) { .mega-menu { flex-direction: column; gap: 20px; } .mega-col { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 20px; } .mega-col:last-child { border-bottom: none; padding-bottom: 0; } }
 
     .hero { padding: 72px 0 56px; text-align: center; }
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 24px; }
@@ -172,6 +195,16 @@
     .fact-value { font-size: 24px; font-weight: 700; letter-spacing: -0.04em; color: var(--text); font-variant-numeric: tabular-nums; margin-bottom: 4px; }
     .fact-label { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
 
+    /* TECH STACK */
+    .tech-stack { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 24px; }
+    .tech-stack-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
+    .tech-stack-title { font-size: 13px; font-weight: 600; color: var(--text-dim); }
+    .tech-stack-sub { font-size: 12px; color: var(--text-muted); }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tech-tag { display: inline-flex; align-items: center; gap: 7px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 600; color: var(--text-dim); transition: border-color 0.15s, color 0.15s; }
+    .tech-tag:hover { border-color: var(--accent); color: var(--text); }
+    .tech-tag-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
     /* SHARE */
     .share-row { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 24px; }
     .share-label { font-size: 13px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
@@ -281,6 +314,7 @@
       .panel-actions { display: none !important; }
       .share-row { display: none !important; }
       .dsgvo-note { display: none !important; }
+      .tech-stack { display: none !important; }
       .cta-section { display: none !important; }
       footer { display: none !important; }
       .hidden-costs-body { display: block !important; }
@@ -305,7 +339,76 @@
           <div class="logo-mark">md</div>
           mainly.design
         </a>
-        <div class="header-badge">Whitelabel Dev Services</div>
+        <div class="header-right">
+          <div class="nav-item" id="nav-tech">
+            <button class="nav-btn" id="nav-tech-btn" aria-haspopup="true" aria-expanded="false">
+              Technologie
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="mega-menu" id="mega-menu" role="menu">
+              <div class="mega-col">
+                <div class="mega-col-title">Front-end</div>
+                <ul>
+                  <li>React</li>
+                  <li>Next.js</li>
+                  <li>Angular</li>
+                  <li>Vue.js</li>
+                  <li>JavaScript</li>
+                  <li>TypeScript</li>
+                  <li>Tailwind CSS</li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">Back-end</div>
+                <ul>
+                  <li>Node.js</li>
+                  <li>Java</li>
+                  <li>.NET</li>
+                  <li>Python</li>
+                  <li>PHP</li>
+                  <li>Ruby</li>
+                  <li>Golang</li>
+                  <li>Rust</li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">CMS &amp; E-Commerce</div>
+                <ul>
+                  <li>WordPress</li>
+                  <li>Shopify</li>
+                  <li>Webflow</li>
+                  <li>Strapi</li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">Low-Code / No-Code</div>
+                <ul>
+                  <li>Make</li>
+                  <li>Zapier</li>
+                  <li>Bubble</li>
+                  <li>n8n</li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">Cloud</div>
+                <ul>
+                  <li>AWS</li>
+                  <li>Azure</li>
+                  <li>GCP</li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">ERP &amp; CRM</div>
+                <ul>
+                  <li>SAP</li>
+                  <li>Salesforce</li>
+                  <li>Odoo</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="header-badge">Whitelabel Dev Services</div>
+        </div>
       </div>
     </div>
   </header>
@@ -877,6 +980,44 @@
 
     updateCostDefaults();
     render();
+
+    // ── Mega-menu (hover + click) ─────────────────────────────────────────────
+    (function() {
+      var navItem = document.getElementById('nav-tech');
+      var btn     = document.getElementById('nav-tech-btn');
+      var menu    = document.getElementById('mega-menu');
+      var closeTimer;
+
+      function open() {
+        clearTimeout(closeTimer);
+        navItem.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+      function close() {
+        navItem.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+      function scheduleClose() { closeTimer = setTimeout(close, 120); }
+
+      navItem.addEventListener('mouseenter', open);
+      navItem.addEventListener('mouseleave', scheduleClose);
+      menu.addEventListener('mouseenter', function() { clearTimeout(closeTimer); });
+      menu.addEventListener('mouseleave', scheduleClose);
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navItem.classList.contains('open') ? close() : open();
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!navItem.contains(e.target)) close();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') close();
+      });
+    })();
+    // ─────────────────────────────────────────────────────────────────────────
   </script>
 </body>
 </html>
