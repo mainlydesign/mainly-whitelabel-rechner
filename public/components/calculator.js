@@ -12,11 +12,16 @@ function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 
 function readStateFromURL() {
   const p = new URLSearchParams(window.location.search);
-  return {
+  const result = {
     devs:   clamp(parseInt(p.get('devs'))   || DEFAULTS.devs,   1,     10),
     salary: clamp(parseInt(p.get('salary')) || DEFAULTS.salary, 50000, 120000),
     days:   clamp(parseInt(p.get('days'))   || DEFAULTS.days,   5,     50),
   };
+  if (p.has('workplace'))  result.workplace  = parseInt(p.get('workplace'));
+  if (p.has('recruiting')) result.recruiting = parseInt(p.get('recruiting'));
+  if (p.has('onboarding')) result.onboarding = parseInt(p.get('onboarding'));
+  if (p.has('training'))   result.training   = parseInt(p.get('training'));
+  return result;
 }
 
 const state = readStateFromURL();
@@ -150,6 +155,12 @@ function updateCostDefaults() {
 function updateURL() {
   const { devs, salary, days } = state;
   const params = new URLSearchParams({ devs, salary, days });
+  costSliders.forEach(function(cfg) {
+    var input = document.getElementById('cslider-' + cfg.id);
+    if (input && input.dataset.auto === 'false') {
+      params.set(cfg.id, Math.round(parseFloat(input.value)));
+    }
+  });
   history.replaceState(null, '', window.location.pathname + '?' + params.toString());
 }
 
@@ -253,10 +264,22 @@ costSliders.forEach(function(cfg) {
     var v = parseFloat(input.value);
     input.dataset.auto = 'false';
     updateCostSliderUI(cfg, v);
+    updateURL();
     render();
   });
 });
 
+// Restore manually-set cost sliders from URL
+costSliders.forEach(function(cfg) {
+  if (state[cfg.id] !== undefined) {
+    var input = document.getElementById('cslider-' + cfg.id);
+    if (input) {
+      input.value = clamp(state[cfg.id], cfg.min, cfg.max);
+      input.dataset.auto = 'false';
+      updateCostSliderUI(cfg, parseFloat(input.value));
+    }
+  }
+});
 updateCostDefaults();
 render();
 
