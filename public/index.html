@@ -11,7 +11,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+    @font-face {
+      font-family: "POLAR";
+      src: url("POLAR-Regular.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Unica77 LL";
+      src: url("Unica77%20LL.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -37,7 +54,7 @@
     html { font-size: 16px; scroll-behavior: smooth; }
 
     body {
-      font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Unica77 LL", -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -68,7 +85,7 @@
 
     /* MEGA-MENU */
     .nav-item { position: relative; }
-    .nav-btn { display: inline-flex; align-items: center; gap: 5px; background: transparent; border: 1px solid var(--border2); color: var(--text-dim); font-family: "DM Sans", sans-serif; font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 8px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .nav-btn { display: inline-flex; align-items: center; gap: 5px; background: transparent; border: 1px solid var(--border2); color: var(--text-dim); font-family: "Unica77 LL", sans-serif; font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 8px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
     .nav-btn svg { width: 12px; height: 12px; transition: transform 0.2s; flex-shrink: 0; }
     .nav-btn:hover, .nav-item.open .nav-btn { border-color: var(--accent); color: var(--accent); }
     .nav-item.open .nav-btn svg { transform: rotate(180deg); }
@@ -89,9 +106,9 @@
     .hero { padding: 72px 0 56px; text-align: center; }
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; font-family: "IBM Plex Mono", monospace; }
     .hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); opacity: 0.6; }
-    h1 { font-size: clamp(36px,5vw,60px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; color: var(--text); margin-bottom: 20px; font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif; }
+    h1 { font-size: clamp(36px,5vw,60px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; color: var(--text); margin-bottom: 20px; font-family: "Unica77 LL", sans-serif; }
     h1 em { font-style: normal; color: var(--accent); }
-    .hero-sub { font-size: 17px; color: var(--text-dim); max-width: 520px; margin: 0 auto; line-height: 1.65; font-weight: 400; font-family: "DM Sans", sans-serif; }
+    .hero-sub { font-size: 17px; color: var(--text-dim); max-width: 520px; margin: 0 auto; line-height: 1.65; font-weight: 400; font-family: "Unica77 LL", sans-serif; }
 
     .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
     @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; } }
@@ -121,7 +138,7 @@
     .fixed-rate-value span { font-size: 13px; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
 
     .panel-actions { display: flex; justify-content: flex-end; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
-    .reset-btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border2); color: var(--text-muted); font-family: "DM Sans", sans-serif; font-size: 12px; font-weight: 500; padding: 7px 14px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .reset-btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border2); color: var(--text-muted); font-family: "Unica77 LL", sans-serif; font-size: 12px; font-weight: 500; padding: 7px 14px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
     .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
 
     .results-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; position: relative; overflow: hidden; }
