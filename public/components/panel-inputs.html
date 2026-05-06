@@ -1,0 +1,134 @@
+<div class="panel">
+  <div class="panel-label">Ihre Situation</div>
+
+  <div class="slider-group">
+    <div class="slider-header">
+      <div class="slider-label">
+        Anzahl Entwickler
+        <span class="info-icon" tabindex="0">i<span class="tooltip">Wie viele Vollzeit-Entwickler (FTE) beschäftigen oder benötigen Sie?</span></span>
+      </div>
+      <div class="slider-value" id="val-devs">2 <span>FTE</span></div>
+    </div>
+    <div class="slider-track">
+      <div class="slider-fill" id="fill-devs"></div>
+      <input type="range" id="slider-devs" min="1" max="10" value="2" step="1" />
+      <div class="slider-thumb" id="thumb-devs"></div>
+    </div>
+    <div class="slider-range"><span>1 FTE</span><span>10 FTE</span></div>
+  </div>
+
+  <div class="slider-group">
+    <div class="slider-header">
+      <div class="slider-label">
+        Durchschn. Jahresgehalt
+        <span class="info-icon" tabindex="0">i<span class="tooltip">Bruttogehalt des Entwicklers. Lohnnebenkosten (ca. 30 %) werden separat berechnet.</span></span>
+      </div>
+      <div class="slider-value" id="val-salary">75.000 <span>€</span></div>
+    </div>
+    <div class="slider-track">
+      <div class="slider-fill" id="fill-salary"></div>
+      <input type="range" id="slider-salary" min="50000" max="120000" value="75000" step="1000" />
+      <div class="slider-thumb" id="thumb-salary"></div>
+    </div>
+    <div class="slider-range"><span>50.000 €</span><span>120.000 €</span></div>
+  </div>
+
+  <div class="slider-group">
+    <div class="slider-header">
+      <div class="slider-label">
+        Projektvolumen / Monat
+        <span class="info-icon" tabindex="0">i<span class="tooltip">Wie viele Entwicklertage benötigen Sie monatlich für Kundenprojekte?</span></span>
+      </div>
+      <div class="slider-value" id="val-days">20 <span>Tage</span></div>
+    </div>
+    <div class="slider-track">
+      <div class="slider-fill" id="fill-days"></div>
+      <input type="range" id="slider-days" min="5" max="50" value="20" step="1" />
+      <div class="slider-thumb" id="thumb-days"></div>
+    </div>
+    <div class="slider-range"><span>5 Tage</span><span>50 Tage</span></div>
+  </div>
+
+  <div class="cost-inputs">
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <div class="slider-label">
+          Arbeitsplatzkosten/Jahr
+          <span class="info-icon" tabindex="0">i<span class="tooltip">Büro, Hardware, Software-Lizenzen (ca. 800 €/Monat/Person)</span></span>
+        </div>
+        <div class="slider-value" id="cval-workplace">— <span>€</span></div>
+      </div>
+      <div class="slider-track">
+        <div class="slider-fill" id="cfill-workplace"></div>
+        <input type="range" id="cslider-workplace" min="0" max="100000" value="0" step="500" data-auto="true" />
+        <div class="slider-thumb" id="cthumb-workplace"></div>
+      </div>
+      <div class="slider-range"><span>0 €</span><span>100.000 €</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <div class="slider-label">
+          Recruiting-Kosten
+          <span class="info-icon" tabindex="0">i<span class="tooltip">Headhunter, Stellenanzeigen (ca. 20 % des Jahresgehalts)</span></span>
+        </div>
+        <div class="slider-value" id="cval-recruiting">— <span>€</span></div>
+      </div>
+      <div class="slider-track">
+        <div class="slider-fill" id="cfill-recruiting"></div>
+        <input type="range" id="cslider-recruiting" min="0" max="200000" value="0" step="1000" data-auto="true" />
+        <div class="slider-thumb" id="cthumb-recruiting"></div>
+      </div>
+      <div class="slider-range"><span>0 €</span><span>200.000 €</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <div class="slider-label">
+          Onboarding-Verlust
+          <span class="info-icon" tabindex="0">i<span class="tooltip">4 Monate bis zur vollen Produktivität — bezahlt, aber nicht vollständig produktiv</span></span>
+        </div>
+        <div class="slider-value" id="cval-onboarding">— <span>€</span></div>
+      </div>
+      <div class="slider-track">
+        <div class="slider-fill" id="cfill-onboarding"></div>
+        <input type="range" id="cslider-onboarding" min="0" max="300000" value="0" step="1000" data-auto="true" />
+        <div class="slider-thumb" id="cthumb-onboarding"></div>
+      </div>
+      <div class="slider-range"><span>0 €</span><span>300.000 €</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <div class="slider-label">
+          Fortbildung &amp; Weiterentwicklung
+          <span class="info-icon" tabindex="0">i<span class="tooltip">Konferenzen, Kurse, Fachbücher (ca. 2.500 €/Jahr/Person)</span></span>
+        </div>
+        <div class="slider-value" id="cval-training">— <span>€</span></div>
+      </div>
+      <div class="slider-track">
+        <div class="slider-fill" id="cfill-training"></div>
+        <input type="range" id="cslider-training" min="0" max="30000" value="0" step="100" data-auto="true" />
+        <div class="slider-thumb" id="cthumb-training"></div>
+      </div>
+      <div class="slider-range"><span>0 €</span><span>30.000 €</span></div>
+    </div>
+
+  </div>
+
+  <div class="fixed-rate-row">
+    <div class="fixed-rate-label">
+      Tagessatz mainly.design
+      <span class="info-icon" tabindex="0">i<span class="tooltip">Unser aktueller Festpreis für Whitelabel-Projekte. Transparent, keine versteckten Kosten.</span></span>
+    </div>
+    <div class="fixed-rate-value">920 <span>€/Tag</span></div>
+  </div>
+
+  <div class="panel-actions">
+    <button class="reset-btn" id="reset-btn">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6C1 3.24 3.24 1 6 1c1.66 0 3.13.81 4.06 2.06M11 6c0 2.76-2.24 5-5 5-1.66 0-3.13-.81-4.06-2.06" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8.5 3L10.5 3.5L10 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Zurücksetzen
+    </button>
+  </div>
+</div>
